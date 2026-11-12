@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_puthex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anes-sal <anes-sal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/04 11:00:14 by anes-sal          #+#    #+#             */
-/*   Updated: 2026/11/04 11:05:20 by anes-sal         ###   ########.fr       */
+/*   Created: 2026/11/12 18:58:48 by anes-sal          #+#    #+#             */
+/*   Updated: 2026/11/12 19:02:39 by anes-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+int	ft_puthex(unsigned long addr, char c)
 {
-	t_list	*current;
+	int		count;
+	char	*hex;
 
-	if (!lst || !new)
-		return ;
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
-	current = ft_lstlast(*lst);
-	current->next = new;
+	count = 0;
+	if (c == 'x')
+		hex = "0123456789abcdef";
+	else
+		hex = "0123456789ABCDEF";
+	count = ft_base16(addr, hex);
+	if (count < 0)
+		return (-1);
+	return (count);
 }

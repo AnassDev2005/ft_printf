@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anes-sal <anes-sal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/04 11:01:43 by anes-sal          #+#    #+#             */
-/*   Updated: 2026/11/04 11:05:21 by anes-sal         ###   ########.fr       */
+/*   Created: 2026/11/09 16:52:30 by anes-sal          #+#    #+#             */
+/*   Updated: 2026/11/12 15:40:49 by anes-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_printf(const char *format, ...)
 {
-	const unsigned char	*p1;
-	const unsigned char	*p2;
-	size_t				i;
+	va_list	args;
+	int		count;
 
-	p1 = (const unsigned char *)s1;
-	p2 = (const unsigned char *)s2;
-	i = 0;
-	while (i < n)
+	va_start(args, format);
+	count = 0;
+	while (*format)
 	{
-		if (p1[i] != p2[i])
-			return (p1[i] - p2[i]);
-		i++;
+		if (*format == '%')
+			count += ft_format(&format, &args);
+		else
+			count += write(1, format++, 1);
 	}
-	return (0);
+	va_end(args);
+	return (count);
 }

@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_unsigned.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anes-sal <anes-sal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/04 11:04:18 by anes-sal          #+#    #+#             */
-/*   Updated: 2026/11/04 11:05:24 by anes-sal         ###   ########.fr       */
+/*   Created: 2026/11/12 18:38:59 by anes-sal          #+#    #+#             */
+/*   Updated: 2026/11/12 18:52:02 by anes-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+int	ft_putnbr_unsigned(unsigned int nbr)
 {
-	size_t	i;
-	char	*str;
+	int	count;
+	int	ret;
 
-	if (!s || !f)
-		return (NULL);
-	str = ft_strdup(s);
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (str[i])
+	count = 0;
+	if (nbr > 9)
 	{
-		str[i] = f((unsigned int)i, str[i]);
-		i++;
+		ret = ft_putnbr_unsigned(nbr / 10);
+		if (ret < 0)
+			return (-1);
+		count += ret;
 	}
-	return (str);
+	ret = ft_putchar((nbr % 10) + '0');
+	if (ret < 0)
+		return (-1);
+	count += ret;
+	return (count);
 }

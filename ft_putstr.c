@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anes-sal <anes-sal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/04 11:02:32 by anes-sal          #+#    #+#             */
-/*   Updated: 2026/11/04 11:05:22 by anes-sal         ###   ########.fr       */
+/*   Created: 2026/11/10 10:08:49 by anes-sal          #+#    #+#             */
+/*   Updated: 2026/11/12 14:40:17 by anes-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+int	ft_putstr(const char *str)
 {
-	unsigned char	*p;
-	size_t			i;
+	int	count;
 
-	p = (unsigned char *)s;
-	i = 0;
-	while (i < n)
+	if (!str)
+		str = "(null)";
+	count = 0;
+	while (str[count])
 	{
-		p[i] = (unsigned char)c;
-		i++;
+		if (write(1, &str[count], 1) == -1)
+			return (-1);
+		count++;
 	}
-	return (s);
+	return (count);
 }

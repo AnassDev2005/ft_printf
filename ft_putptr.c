@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anes-sal <anes-sal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/04 11:03:01 by anes-sal          #+#    #+#             */
-/*   Updated: 2026/11/04 11:05:22 by anes-sal         ###   ########.fr       */
+/*   Created: 2026/11/10 10:37:27 by anes-sal          #+#    #+#             */
+/*   Updated: 2026/11/12 17:51:41 by anes-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putnbr_fd(int c, int fd)
+int	ft_putptr(void *ptr)
 {
-	long	n;
-	char	d;
+	int				count;
+	int				ret;
+	unsigned long	p;
+	char			*hex;
 
-	n = (long)c;
-	if (n < 0)
-	{
-		n = -n;
-		write(fd, "-", 1);
-	}
-	if (n > 9)
-	{
-		ft_putnbr_fd(n / 10, fd);
-	}
-	d = (n % 10) + '0';
-	write(fd, &d, 1);
+	count = 0;
+	hex = "0123456789abcdef";
+	p = (unsigned long)ptr;
+	if (!p)
+		return (ft_putstr("(nil)"));
+	ret = ft_putstr("0x");
+	if (ret < 0)
+		return (-1);
+	count += ret;
+	ret = ft_base16(p, hex);
+	if (ret < 0)
+		return (-1);
+	count += ret;
+	return (count);
 }

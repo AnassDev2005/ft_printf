@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_base16.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anes-sal <anes-sal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/04 11:04:01 by anes-sal          #+#    #+#             */
-/*   Updated: 2026/11/04 11:05:23 by anes-sal         ###   ########.fr       */
+/*   Created: 2026/11/12 16:05:14 by anes-sal          #+#    #+#             */
+/*   Updated: 2026/11/12 17:41:24 by anes-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+int	ft_base16(unsigned long addr, char *base)
 {
-	size_t	srclen;
-	size_t	i;
+	int	count;
+	int	ret;
 
-	srclen = ft_strlen(src);
-	i = 0;
-	if (size == 0)
-		return (srclen);
-	while (src[i] && i < size - 1)
+	count = 0;
+	if (addr > 15)
 	{
-		dst[i] = src[i];
-		i++;
+		ret = ft_base16(addr / 16, base);
+		if (ret < 0)
+			return (-1);
+		count += ret;
 	}
-	dst[i] = 0;
-	return (srclen);
+	ret = ft_putchar(base[addr % 16]);
+	if (ret < 0)
+		return (-1);
+	return (count + ret);
 }
